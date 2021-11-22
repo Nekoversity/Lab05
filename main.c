@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <time.h>
 
 int strcompare(char* s1, char* s2)
 {
@@ -19,10 +20,42 @@ int strcompare(char* s1, char* s2)
     }
 }
 
+int mystrcopy(char* from, char* to)
+{
+    int fromLen = 0, toLen = 0;
+    char* fp;
+    char* tp;
+
+    for (fp = from; *fp; ++fp)
+        ++fromLen;
+
+    for (tp = to; *tp; ++tp)
+        ++toLen;
+
+    if (toLen > fromLen)
+        return -1;
+
+    for (int i = 0; i < fromLen; ++i)
+        to[i] = from[i];
+
+    return 0;
+}
+
+int fib_tail(int n, int a, int b)
+{
+    if (n == 0)
+        return a;
+    return fib_tail(n - 1, b, a + b);
+}
+
+int fib_straight(int n)
+{
+    if (n <= 1)
+        return n;
+    return fib_straight(n-1) + fib_straight(n-2);
+}
+
 int main() {
-    printf("strcompare(\"string\", \"string\") => %d\n", strcompare("string", "string"));
-    printf("strcompare(\"string\", \"STring\") => %d\n", strcompare("string", "STring"));
-    printf("strcompare(\"string\", \"StRING\") => %d\n", strcompare("string", "StRING"));
-    printf("strcompare(\"string\", \"strings\") => %d\n", strcompare("string", "strings"));
+
     return 0;
 }
