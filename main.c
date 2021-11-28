@@ -2,11 +2,9 @@
 #include <ctype.h>
 #include <math.h>
 
-int strcompare(char* s1, char* s2)
-{
+int strcompare(char *s1, char *s2) {
     int index = 0;
-    while (1)
-    {
+    while (1) {
         char c1 = tolower(s1[index]);
         char c2 = tolower(s2[index]);
 
@@ -20,11 +18,10 @@ int strcompare(char* s1, char* s2)
     }
 }
 
-int mystrcopy(char* from, char* to)
-{
+int mystrcopy(char *from, char *to) {
     int fromLen = 0, toLen = 0;
-    char* fp;
-    char* tp;
+    char *fp;
+    char *tp;
 
     for (fp = from; *fp; ++fp)
         ++fromLen;
@@ -41,33 +38,30 @@ int mystrcopy(char* from, char* to)
     return 0;
 }
 
-int fib_tail(int n, int a, int b)
-{
+int fib_tail(int n, int a, int b) {
     if (n == 0)
         return a;
     return fib_tail(n - 1, b, a + b);
 }
 
-int fib_straight(int n)
-{
+int fib_straight(int n) {
     if (n <= 1)
         return n;
-    return fib_straight(n-1) + fib_straight(n-2);
+    return fib_straight(n - 1) + fib_straight(n - 2);
 }
 
-void quicksort(int *arr, int low, int high)
-{
+void quicksort(int *arr, int low, int high) {
     int pivot, i, j, temp;
-    if(low < high) {
+    if (low < high) {
         pivot = low;
         i = low;
         j = high;
-        while(i < j) {
-            while(arr[i] <= arr[pivot] && i <= high)
+        while (i < j) {
+            while (arr[i] <= arr[pivot] && i <= high)
                 i++;
-            while(arr[j] > arr[pivot] && j >= low)
+            while (arr[j] > arr[pivot] && j >= low)
                 j--;
-            if(i < j) {
+            if (i < j) {
                 temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
@@ -78,17 +72,16 @@ void quicksort(int *arr, int low, int high)
         arr[j] = arr[pivot];
         arr[pivot] = temp;
 
-        quicksort(arr, low, j-1);
-        quicksort(arr, j+1, high);
+        quicksort(arr, low, j - 1);
+        quicksort(arr, j + 1, high);
     }
 }
 
-void insertation_sort(int arr[], int size)
-{
+void insertation_sort(int arr[], int size) {
     int temp;
-    for (int i = 0; i < size - 1; i++){
-        for (int j = i + 1; j < size; j++){
-            if (arr[i] > arr[j]){
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] > arr[j]) {
                 temp = arr[j];
                 arr[j] = arr[i];
                 arr[i] = temp;
@@ -97,11 +90,9 @@ void insertation_sort(int arr[], int size)
     }
 }
 
-void choose_sort(int arr[], int size)
-{
+void choose_sort(int arr[], int size) {
     int temp, min;
-    for (int i = 0; i < size - 1; i++)
-    {
+    for (int i = 0; i < size - 1; i++) {
         min = i;
         for (int j = i + 1; j < size; j++)
             if (arr[j] < arr[min])
@@ -113,8 +104,7 @@ void choose_sort(int arr[], int size)
     }
 }
 
-void merge_sorted_arrays(int *arr1, int size1, int *arr2, int size2, int *result)
-{
+void merge_sorted_arrays(int *arr1, int size1, int *arr2, int size2, int *result) {
     int i = 0, j = 0, k = 0;
 
     while (i < size1 && j < size2) {
@@ -166,22 +156,19 @@ void merge_sort(int *arr, int low, int high) {
     if (low < high) {
         mid = (low + high) / 2;
         merge_sort(arr, low, mid);
-        merge_sort(arr,mid + 1, high);
+        merge_sort(arr, mid + 1, high);
         merge_array(arr, low, mid, mid + 1, high);
     }
 }
 
-double f(double x)
-{
+double f(double x) {
     return sqrt(fabs(cos(x))) - x;
 }
 
-void hord_method_imp(double a, double b, double eps)
-{
+void hord_method_imp(double a, double b, double eps) {
     double x1 = a, x2 = b, x = 0;
 
-    while (1)
-    {
+    while (1) {
         double x0 = x;
         x = x1 - f(x1) * (x2 - x1) / (f(x2) - f(x1));
         if (f(x1) * f(x) < 0)
@@ -196,7 +183,35 @@ void hord_method_imp(double a, double b, double eps)
     printf("X: %f", x);
 }
 
+#define SIZE 5
+
+int is_matrix_diag(int m[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; ++i)
+        for (int j = 0; j < SIZE; ++j)
+            if (i != j && m[i][j] != 0)
+                return -1;
+    return 1;
+}
+
 int main() {
+    int m1[5][5] = {
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+    };
+
+    int m2[5][5] = {
+            {1, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 0, 1, 0},
+            {0, 0, 0, 0, 1},
+    };
+
+    printf("Diag m1 -> %d\nDiag m2 -> %d",
+           is_matrix_diag(m1), is_matrix_diag(m2));
 
     return 0;
 }
