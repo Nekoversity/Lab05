@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <time.h>
 
 int strcompare(char* s1, char* s2)
 {
@@ -55,7 +54,124 @@ int fib_straight(int n)
     return fib_straight(n-1) + fib_straight(n-2);
 }
 
+void quicksort(int *arr, int low, int high)
+{
+    int pivot, i, j, temp;
+    if(low < high) {
+        pivot = low;
+        i = low;
+        j = high;
+        while(i < j) {
+            while(arr[i] <= arr[pivot] && i <= high)
+                i++;
+            while(arr[j] > arr[pivot] && j >= low)
+                j--;
+            if(i < j) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        temp = arr[j];
+        arr[j] = arr[pivot];
+        arr[pivot] = temp;
+
+        quicksort(arr, low, j-1);
+        quicksort(arr, j+1, high);
+    }
+}
+
+void insertation_sort(int arr[], int size)
+{
+    int temp;
+    for (int i = 0; i < size - 1; i++){
+        for (int j = i + 1; j < size; j++){
+            if (arr[i] > arr[j]){
+                temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+    }
+}
+
+void choose_sort(int arr[], int size)
+{
+    int temp, min;
+    for (int i = 0; i < size - 1; i++)
+    {
+        min = i;
+        for (int j = i + 1; j < size; j++)
+            if (arr[j] < arr[min])
+                min = j;
+
+        temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+    }
+}
+
+void merge_sorted_arrays(int *arr1, int size1, int *arr2, int size2, int *result)
+{
+    int i = 0, j = 0, k = 0;
+
+    while (i < size1 && j < size2) {
+        if (arr1[i] < arr2[j]) {
+            result[k] = arr1[i];
+            ++k;
+            ++i;
+        } else {
+            result[k] = arr2[j];
+            ++k;
+            ++j;
+        }
+    }
+    while (i < size1) {
+        result[k] = arr1[i];
+        ++k;
+        ++i;
+    }
+    while (j < size2) {
+        result[k] = arr2[j];
+        ++k;
+        ++j;
+    }
+}
+
+void merge_array(int *arr, int low, int a, int b, int high) {
+    int tmp[5];
+    int i = low, j = b, k = 0;
+
+    while (i <= a && j <= high)
+        if (arr[i] < arr[j])
+            tmp[k++] = arr[i++];
+        else
+            tmp[k++] = arr[j++];
+
+    while (i <= a)
+        tmp[k++] = arr[i++];
+
+    while (j <= high)
+        tmp[k++] = arr[j++];
+
+    for (i = low, j = 0; i <= high; i++, j++)
+        arr[i] = tmp[j];
+}
+
+void merge_sort(int *arr, int low, int high) {
+    int mid;
+
+    if (low < high) {
+        mid = (low + high) / 2;
+        merge_sort(arr, low, mid);
+        merge_sort(arr,mid + 1, high);
+        merge_array(arr, low, mid, mid + 1, high);
+    }
+}
+
 int main() {
+
 
     return 0;
 }
