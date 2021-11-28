@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 
 int strcompare(char* s1, char* s2)
 {
@@ -170,8 +171,32 @@ void merge_sort(int *arr, int low, int high) {
     }
 }
 
-int main() {
+double f(double x)
+{
+    return sqrt(fabs(cos(x))) - x;
+}
 
+void hord_method_imp(double a, double b, double eps)
+{
+    double x1 = a, x2 = b, x = 0;
+
+    while (1)
+    {
+        double x0 = x;
+        x = x1 - f(x1) * (x2 - x1) / (f(x2) - f(x1));
+        if (f(x1) * f(x) < 0)
+            x2 = x;
+        else
+            x1 = x;
+
+        if (fabs(x - x0) <= eps)
+            break;
+    }
+
+    printf("X: %f", x);
+}
+
+int main() {
 
     return 0;
 }
